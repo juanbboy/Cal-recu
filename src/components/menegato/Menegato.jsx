@@ -1,14 +1,13 @@
 import React from 'react'
-import { useState } from 'react';
-import { useForm } from '../../hooks/useForm';
-import './start.css';
+import { useState } from 'react'
+import { useForm } from '../../hooks/useForm'
 
-const Start = () => {
-    const velmotor = 3590
+const Menegato = () => {
+    const velmotor = 1800
     const dhuso = 25
     const costpolea = 3
     const reduc = 400
-    const constvel = 18.4
+    const constvel = 11
     const [rpmhuso, setRpmhuso] = useState(0)
     const [rpmhusos, setRpmhusos] = useState(0)
     const [reductor, setReductor] = useState(0)
@@ -19,6 +18,7 @@ const Start = () => {
     const [tpmsup, setTpmsup] = useState(0)
     const [velfinalc, setVelfinalc] = useState(0)
     const [almaa, setAlmaa] = useState(0)
+    const [titfin, setTitfin] = useState(0)
     const [formValues, handleInputChange, reset] = useForm({
         uno: '',
         dos: '',
@@ -52,8 +52,9 @@ const Start = () => {
         cromados()
         estiro()
         recogida()
-        alma()
         tpm()
+        alma()
+        titulofinal()
     }
 
     const event = (e) => {
@@ -62,10 +63,15 @@ const Start = () => {
         rpms()
         cromados()
         estiro()
-        tpm()
         recogida()
+        tpm()
         alma()
+        titulofinal()
         //console.log(e.target.value, e.target.name, pinf)
+    }
+
+    const titulofinal = () => {
+        setTitfin((tspand / velest) + tnylonext)
     }
 
     const alma = () => {
@@ -78,15 +84,23 @@ const Start = () => {
         const velfinal = rel2 * velinter
         const rads = velfinal * (((2 * 3.1416) / 1) * (1 / 60))
         const radmin = rads * 60
-        const diametro = 80
+        const diametro = 125
         const dmetro = diametro / 1000
         const radio = dmetro / 2
         setVelreco((radmin * radio).toFixed(2))
     }
     const cromados = () => {
+        const z1 = 22
+        const z2 = 20
+        const z3 = 20
+        const z4 = 37
+        const z = z1 / z2
+        const zz = z3 / z4
+        const velini1 = z * reductor
+        const velini = zz * velini1
         const rel1 = cinco / seis
         const rel2 = siete / ocho
-        const velinter = rel1 * reductor
+        const velinter = rel1 * velini
         setVelfinalc(rel2 * velinter)
         const rads = velfinalc * (((2 * 3.1416) / 1) * (1 / 60))
         const radmin = rads * 60
@@ -101,17 +115,22 @@ const Start = () => {
         setTpmsup((rpmhusos / velcrom).toFixed(0))
     }
     const estiro = () => {
+        const z1 = 22
+        const z2 = 74
+        const z = z1 / z2
+        const velini1 = z * reductor
+
         const rel1 = nueve / diez
         const rel2 = once / doce
-        const velinter = rel1 * reductor
+        const velinter = rel1 * velini1
         const velfinal = rel2 * velinter
 
-        const rel11 = 17 / 30
+        const rel11 = 17 / 27
         const velinter1 = rel11 * velfinal
         const rads = velinter1 * (((2 * 3.1416) / 1) * (1 / 60))
         const radmin = rads * 60
 
-        const diametro = 100
+        const diametro = 80
         const dmetro = diametro / 1000
         const radio = dmetro / 2
         setVelest((radmin * radio).toFixed(2))
@@ -121,6 +140,7 @@ const Start = () => {
         setRpmhuso((velmotor * (costpolea + Number(pinf)) / dhuso).toFixed(0))
         const temp = ((velmotor * pinf) / reduc)
         setReductor(temp / constvel)
+        console.log(reductor)
     }
 
     const rpms = () => {
@@ -148,7 +168,7 @@ const Start = () => {
                                 D
                             </div>
                             <div className='col-2'>
-                                Vel
+                                RPM
                             </div>
                         </div>
                         <div className='row justify-content-center'>
@@ -356,7 +376,7 @@ const Start = () => {
                                     name="tspand"
                                     value={tspand}
                                     onChange={event}
-                                    required={true}
+                                //required={true}
                                 />
                             </div>
 
@@ -373,7 +393,7 @@ const Start = () => {
                                 name="tnylonext"
                                 value={tnylonext}
                                 onChange={event}
-                                required={true}
+                            // required={true}
                             /></div>
                         </div>
                         <div className='row justify-content-center '>
@@ -388,7 +408,7 @@ const Start = () => {
                                 name="tnylonint"
                                 value={tnylonint}
                                 onChange={event}
-                                required={true}
+                            // required={true}
                             /></div>
                         </div>
                         <div className='row justify-content-center '>
@@ -463,8 +483,7 @@ const Start = () => {
                 </div>
             </form>
         </div>
-
     )
 }
 
-export default Start
+export default Menegato
