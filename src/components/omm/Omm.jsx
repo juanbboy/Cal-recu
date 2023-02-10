@@ -89,7 +89,7 @@ const Omm = () => {
         setNylon((tnylonext / titfin).toFixed(2))
         setSpandex((1 - nylon).toFixed(2))
         setGrhora(((velcrom * titfin * 60) / 9000).toFixed(2))
-        setProddia(grhora * puestos * 24 / 1000)
+        setProddia((grhora * puestos * 24 / 1000).toFixed(2))
         setRendimiento((9000000 / titfin).toFixed(2))
         setTiempo((24 / proddia).toFixed(2))
         setRelcogida((velreco / velcrom).toFixed(2))
