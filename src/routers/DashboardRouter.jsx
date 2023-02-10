@@ -8,7 +8,7 @@ const DashboardRouter = () => {
     return (
         <>
             <Navbar />
-            <div className="container mt-2">
+            <div className="m-5">
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Omm />} />

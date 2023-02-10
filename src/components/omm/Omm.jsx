@@ -20,6 +20,16 @@ const Omm = () => {
     const [velfinalc, setVelfinalc] = useState(0)
     const [titfin, setTitfin] = useState(0)
     const [almaa, setAlmaa] = useState(0)
+    const [nylon, setNylon] = useState(0)
+    const [spandex, setSpandex] = useState(0)
+    const [grhora, setGrhora] = useState(0)
+    const [proddia, setProddia] = useState(0)
+    const [tiempo, setTiempo] = useState(0)
+    const [relcogida, setRelcogida] = useState(0)
+    const [rendimiento, setRendimiento] = useState(0)
+    const [saca, setSaca] = useState(0)
+    const [paquete, setpaquete] = useState(0)
+
     const [formValues, handleInputChange, reset] = useForm({
         uno: '',
         dos: '',
@@ -72,8 +82,23 @@ const Omm = () => {
     }
 
     const titulofinal = () => {
-        setTitfin((tspand / almaa) + tnylonext)
+        setTitfin(((Number(tspand) / almaa) + Number(tnylonext)).toFixed(2))
+        console.log(almaa)
+        console.log(Number(tspand) / almaa)
+        const yd = ((9000 * 453.6) / (titfin * 0.3048 * 3))
+        setNylon((tnylonext / titfin).toFixed(2))
+        setSpandex((1 - nylon).toFixed(2))
+        setGrhora(((velcrom * titfin * 60) / 9000).toFixed(2))
+        setProddia(grhora * puestos * 24 / 1000)
+        setRendimiento((9000000 / titfin).toFixed(2))
+        setTiempo((24 / proddia).toFixed(2))
+        setRelcogida((velreco / velcrom).toFixed(2))
+        setSaca((350 / (nylon * grhora)).toFixed(2))
+        setpaquete((saca * grhora).toFixed(2))
+
     }
+
+
 
     const alma = () => {
         setAlmaa((velcrom / velest).toFixed(2))
@@ -137,10 +162,10 @@ const Omm = () => {
 
 
     return (
-        <div className='p-4 align-items-center'>
+        <div className=' align-items-center'>
             <form onSubmit={handleRegister}>
                 <div className='row text-center'>
-                    <div className='col-6 '>
+                    <div className='col-sm-6 left'>
                         <div className='row justify-content-center'>
                             <div className='col-2'>
                                 A
@@ -167,7 +192,7 @@ const Omm = () => {
                                     name="uno"
                                     value={uno}
                                     onChange={event}
-                                    required={true}
+                                // required={true}
                                 />
                             </div>
                             <div className='col-2 '>
@@ -178,7 +203,7 @@ const Omm = () => {
                                     name="dos"
                                     value={dos}
                                     onChange={event}
-                                    required={true}
+                                //required={true}
                                 />
                             </div>
                             <div className='col-2 '>
@@ -189,7 +214,7 @@ const Omm = () => {
                                     name="tres"
                                     value={tres}
                                     onChange={event}
-                                    required={true}
+                                //required={true}
                                 />
                             </div>
                             <div className='col-2 '>
@@ -200,7 +225,7 @@ const Omm = () => {
                                     name="cuatro"
                                     value={cuatro}
                                     onChange={event}
-                                    required={true}
+                                //required={true}
                                 />
                             </div>
                             <div className='col-2'>
@@ -311,7 +336,7 @@ const Omm = () => {
                                 <div className='col-3 text-center'>POLEA SUPERIOR </div>
                                 <div className='col-3 text-center'>POLEA INFERIOR </div>
                                 <div className='col-3 text-center'>RPM SUPERIOR </div>
-                                <div className='col-3 text-center'>RPM INTERIOR </div>
+                                <div className='col-3 text-center'>RPM INFERIOR </div>
                             </div>
                             <div className='row'>
                                 <div className='col-3 p-2 text-center'>
@@ -335,8 +360,8 @@ const Omm = () => {
                                         required={true}
                                     />
                                 </div>
-                                <div className='col-3 p-2'>{rpmhuso} </div>
-                                <div className='col-3 p-2'>{rpmhusos}</div>
+                                <div className='col-3 p-2'>{rpmhusos} </div>
+                                <div className='col-3 p-2'>{rpmhuso}</div>
                             </div>
                             <div className='p-3'><hr /></div>
                             <div className='row'>
@@ -349,124 +374,157 @@ const Omm = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-6 '>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Spandex </label>
-                            </div>
-                            <div className='col-4'>
-                                <input
-                                    type="text"
-                                    className="in"
-                                    id="exampleInputname"
-                                    name="tspand"
-                                    value={tspand}
-                                    onChange={event}
-                                    required={true}
-                                />
-                            </div>
+                    <div className='col-6 right'>
+                        <div className='row text-center'>
+                            <div className='col-sm-6 '>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Spandex </label>
+                                    </div>
+                                    <div className='col-6'>
+                                        <input
+                                            type="text"
+                                            className="in"
+                                            id="exampleInputname"
+                                            name="tspand"
+                                            value={tspand}
+                                            onChange={event}
+                                        // required={true}
+                                        />
+                                    </div>
 
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Nylon Ext. </label>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Nylon Ext. </label>
+                                    </div>
+                                    <div className='col-6'> <input
+                                        type="text"
+                                        className="in"
+                                        id="exampleInputname"
+                                        name="tnylonext"
+                                        value={tnylonext}
+                                        onChange={event}
+                                    // required={true}
+                                    /></div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Nylon Int. </label>
+                                    </div>
+                                    <div className='col-6'> <input
+                                        type="text"
+                                        className="in"
+                                        id="exampleInputname"
+                                        name="tnylonint"
+                                        value={tnylonint}
+                                        onChange={event}
+                                    //required={true}
+                                    /></div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Nº de Puestos </label>
+                                    </div>
+                                    <div className='col-6'> <input
+                                        type="text"
+                                        className="in"
+                                        id="exampleInputname"
+                                        name="puestos"
+                                        value={puestos}
+                                        onChange={event}
+                                    //required={true}
+                                    /></div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Estiro Alma</label>
+                                    </div>
+                                    <div className='col-6'>{almaa}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Grs/Hrs/Puesto </label>
+                                    </div>
+                                    <div className='col-6'>{grhora}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Prod kg/dia </label>
+                                    </div>
+                                    <div className='col-6'>{proddia}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Tiempo Hrs/Kgs</label>
+                                    </div>
+                                    <div className='col-6'>{tiempo}</div>
+                                </div>
                             </div>
-                            <div className='col-4'> <input
-                                type="text"
-                                className="in"
-                                id="exampleInputname"
-                                name="tnylonext"
-                                value={tnylonext}
-                                onChange={event}
-                            // required={true}
-                            /></div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Nylon Int. </label>
+                            <div className='col-sm-6 '>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Rel Recogida</label>
+                                    </div>
+                                    <div className='col-6'>{relcogida}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Rend Mts/Kgs</label>
+                                    </div>
+                                    <div className='col-6'>{rendimiento}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Final</label>
+                                    </div>
+                                    <div className='col-6'>{titfin}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">% Nylon</label>
+                                    </div>
+                                    <div className='col-6'>{nylon}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">% Spandex</label>
+                                    </div>
+                                    <div className='col-6'>{spandex}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Hr/saca</label>
+                                    </div>
+                                    <div className='col-6'>{saca}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">gr/cono</label>
+                                    </div>
+                                    <div className='col-6'>{paquete}</div>
+                                </div>
                             </div>
-                            <div className='col-4'> <input
-                                type="text"
-                                className="in"
-                                id="exampleInputname"
-                                name="tnylonint"
-                                value={tnylonint}
-                                onChange={event}
-                            //required={true}
-                            /></div>
                         </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Nº de Puestos </label>
-                            </div>
-                            <div className='col-4'> <input
-                                type="text"
-                                className="in"
-                                id="exampleInputname"
-                                name="puestos"
-                                value={puestos}
-                                onChange={event}
-                            //required={true}
-                            /></div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Estiro Alma</label>
-                            </div>
-                            <div className='col-4'>{almaa}</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Prod. Grs/Hrs/Puesto </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Produccion kg/dia </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Tiempo Hrs/Kgs </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Relacion de Recogida </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Rendimiento Mts/Kgs </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Final del Hilo</label>
-                            </div>
-                            <div className='col-4'>{titfin}</div>
-                        </div>
-
                     </div>
                 </div>
-                <div>
-                    <button className="w-100 btn btn-lg btn-primary" type="submit">Calcular</button>
+                <div className='text-center p-3'>
+                    <button className=" w-50 btn btn-lg btn-primary" type="submit">Calcular</button>
                 </div>
             </form>
         </div>
