@@ -6,6 +6,11 @@
     .right {
         padding: 5px 5px 5px 5px;
     }
+
+    .container {
+        padding: 1px;
+        width: 100%;
+    }
 }
 
 @media (min-width: 768px) {

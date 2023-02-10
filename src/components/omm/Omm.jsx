@@ -184,10 +184,10 @@ const Omm = () => {
                             </div>
                         </div>
                         <div className='row justify-content-center'>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="uno"
                                     value={uno}
@@ -195,10 +195,10 @@ const Omm = () => {
                                 // required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="dos"
                                     value={dos}
@@ -206,10 +206,10 @@ const Omm = () => {
                                 //required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="tres"
                                     value={tres}
@@ -217,10 +217,10 @@ const Omm = () => {
                                 //required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="cuatro"
                                     value={cuatro}
@@ -228,15 +228,15 @@ const Omm = () => {
                                 //required={true}
                                 />
                             </div>
-                            <div className='col-2'>
+                            <div className='col-2 p-0'>
                                 {velreco}
                             </div>
                         </div>
                         <div className='row justify-content-center'>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="cinco"
                                     value={cinco}
@@ -244,10 +244,10 @@ const Omm = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="seis"
                                     value={seis}
@@ -255,10 +255,10 @@ const Omm = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="siete"
                                     value={siete}
@@ -266,10 +266,10 @@ const Omm = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="ocho"
                                     value={ocho}
@@ -282,10 +282,10 @@ const Omm = () => {
                             </div>
                         </div>
                         <div className='row justify-content-center'>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="nueve"
                                     value={nueve}
@@ -293,10 +293,10 @@ const Omm = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="diez"
                                     value={diez}
@@ -304,10 +304,10 @@ const Omm = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="once"
                                     value={once}
@@ -315,10 +315,10 @@ const Omm = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="doce"
                                     value={doce}
@@ -342,7 +342,7 @@ const Omm = () => {
                                 <div className='col-3 p-2 text-center'>
                                     <input
                                         type="text"
-                                        className="in"
+                                        className="in container"
                                         id="exampleInputname"
                                         name="psup"
                                         value={psup}
@@ -352,7 +352,7 @@ const Omm = () => {
                                 <div className='col-3 p-2'>
                                     <input
                                         type="text"
-                                        className="in"
+                                        className="in container"
                                         id="exampleInputname"
                                         name="pinf"
                                         value={pinf}
@@ -385,7 +385,7 @@ const Omm = () => {
                                     <div className='col-6'>
                                         <input
                                             type="text"
-                                            className="in"
+                                            className="in container"
                                             id="exampleInputname"
                                             name="tspand"
                                             value={tspand}
@@ -402,7 +402,7 @@ const Omm = () => {
                                     </div>
                                     <div className='col-6'> <input
                                         type="text"
-                                        className="in"
+                                        className="in container"
                                         id="exampleInputname"
                                         name="tnylonext"
                                         value={tnylonext}
@@ -417,7 +417,7 @@ const Omm = () => {
                                     </div>
                                     <div className='col-6'> <input
                                         type="text"
-                                        className="in"
+                                        className="in container"
                                         id="exampleInputname"
                                         name="tnylonint"
                                         value={tnylonint}
@@ -432,7 +432,7 @@ const Omm = () => {
                                     </div>
                                     <div className='col-6'> <input
                                         type="text"
-                                        className="in"
+                                        className="in container"
                                         id="exampleInputname"
                                         name="puestos"
                                         value={puestos}
