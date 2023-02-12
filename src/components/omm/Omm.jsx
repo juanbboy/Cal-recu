@@ -96,6 +96,7 @@ const Omm = () => {
         setSaca((350 / (nylon * grhora)).toFixed(2))
         setpaquete((saca * grhora).toFixed(2))
 
+
     }
 
 
@@ -164,7 +165,7 @@ const Omm = () => {
     return (
         <div className=' align-items-center'>
             <form onSubmit={handleRegister}>
-                <div className='row text-center'>
+                <div className='row text-center justify-content-center'>
                     <div className='col-sm-6 left'>
                         <div className='row justify-content-center'>
                             <div className='col-2'>
@@ -374,15 +375,15 @@ const Omm = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-6 right'>
-                        <div className='row text-center'>
+                    <div className='col-sm-6 right'>
+                        <div className='row text-center '>
                             <div className='col-sm-6 '>
-                                <div className='row justify-content-center '>
-                                    <div className='col-6'>
+                                <div className='row  '>
+                                    <div className='col-6 justify-content-center'>
                                         <label htmlFor="inputext"
                                             className="col-form-label">Titulo Spandex </label>
                                     </div>
-                                    <div className='col-6'>
+                                    <div className='col-6 cajain'>
                                         <input
                                             type="text"
                                             className="in container"
@@ -400,7 +401,7 @@ const Omm = () => {
                                         <label htmlFor="inputext"
                                             className="col-form-label">Titulo Nylon Ext. </label>
                                     </div>
-                                    <div className='col-6'> <input
+                                    <div className='col-6 cajain'> <input
                                         type="text"
                                         className="in container"
                                         id="exampleInputname"
@@ -415,7 +416,7 @@ const Omm = () => {
                                         <label htmlFor="inputext"
                                             className="col-form-label">Titulo Nylon Int. </label>
                                     </div>
-                                    <div className='col-6'> <input
+                                    <div className='col-6 cajain'> <input
                                         type="text"
                                         className="in container"
                                         id="exampleInputname"
@@ -430,7 +431,7 @@ const Omm = () => {
                                         <label htmlFor="inputext"
                                             className="col-form-label">Nº de Puestos </label>
                                     </div>
-                                    <div className='col-6'> <input
+                                    <div className='col-6 cajain'> <input
                                         type="text"
                                         className="in container"
                                         id="exampleInputname"

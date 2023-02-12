@@ -3,12 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Menegato from '../components/menegato/Menegato'
 import Omm from '../components/omm/Omm'
 import Navbar from '../components/ui/Navbar'
+import './daschboardrouter.css'
+
 
 const DashboardRouter = () => {
     return (
         <>
             <Navbar />
-            <div className="m-5">
+            <div className="lienzo">
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Omm />} />
