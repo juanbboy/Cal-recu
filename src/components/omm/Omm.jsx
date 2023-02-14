@@ -2,8 +2,12 @@ import React from 'react'
 import { useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 import './omm.css';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
-const Omm = () => {
+export const Omm = () => {
+
     const velmotor = 3590
     const dhuso = 25
     const costpolea = 3
@@ -29,8 +33,12 @@ const Omm = () => {
     const [rendimiento, setRendimiento] = useState(0)
     const [saca, setSaca] = useState(0)
     const [paquete, setpaquete] = useState(0)
+    const [datos, setdatos] = useState(0)
+    //  const [subdatos, setsubdatos] = useState(localStorage.getItem("array"))
 
     const [formValues, handleInputChange, reset] = useForm({
+        name: '',
+        tipo: 'omm',
         uno: '',
         dos: '',
         tres: '',
@@ -43,10 +51,6 @@ const Omm = () => {
         diez: '',
         once: '',
         doce: '',
-        trece: '',
-        catorce: '',
-        quince: '',
-        diesiseis: '',
         tspand: '',
         tnylonext: '',
         tnylonint: '',
@@ -54,7 +58,7 @@ const Omm = () => {
         pinf: '',
         puestos: ''
     });
-    const { uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, tspand, tnylonext, tnylonint, psup, pinf, puestos } = formValues;
+    const { name, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, tspand, tnylonext, tnylonint, psup, pinf, puestos } = formValues;
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -78,6 +82,7 @@ const Omm = () => {
         tpm()
         alma()
         titulofinal()
+        console.log(formValues)
         //console.log(e.target.value, e.target.name, pinf)
     }
 
@@ -85,7 +90,7 @@ const Omm = () => {
         setTitfin(((Number(tspand) / almaa) + Number(tnylonext)).toFixed(2))
         console.log(almaa)
         console.log(Number(tspand) / almaa)
-        const yd = ((9000 * 453.6) / (titfin * 0.3048 * 3))
+        // const yd = ((9000 * 453.6) / (titfin * 0.3048 * 3))
         setNylon((tnylonext / titfin).toFixed(2))
         setSpandex((1 - nylon).toFixed(2))
         setGrhora(((velcrom * titfin * 60) / 9000).toFixed(2))
@@ -95,10 +100,71 @@ const Omm = () => {
         setRelcogida((velreco / velcrom).toFixed(2))
         setSaca((350 / (nylon * grhora)).toFixed(2))
         setpaquete((saca * grhora).toFixed(2))
+    }
 
+    const cargar = () => {
+        setdatos(JSON.parse(localStorage.getItem('array')))
+        console.log("cargar")
+        console.log(datos)
+
+        // console.log datos.uno
+
+        formValues.uno = datos.uno
+        formValues.dos = datos.dos
+        formValues.tres = datos.tres
+        formValues.cuatro = datos.cuatro
+        formValues.cinco = datos.cinco
+        formValues.seis = datos.seis
+        formValues.siete = datos.siete
+        formValues.ocho = datos.ocho
+        formValues.nueve = datos.nueve
+        formValues.diez = datos.diez
+        formValues.once = datos.once
+        formValues.doce = datos.doce
+        formValues.psup = datos.psup
+        formValues.pinf = datos.pinf
+        formValues.tspand = datos.tspand
+        formValues.tnylonext = datos.tnylonext
+        formValues.tnylonint = datos.tnylonint
+        formValues.puestos = datos.puestos
+        formValues.name = datos.name
+
+        // formValues.uno =  datos.uno
+        // formValues.dos =  datos.dos
+        // formValues.tres =  datos.tres
+        // formValues.cuatro =  datos.cuatro
+        // formValues.cinco =  datos.cinco
+        // formValues.seis =  datos.seis
+        // formValues.siete =  datos.siete
+        // formValues.ocho =  datos.ocho
+        // formValues.nueve =  datos.nueve
+        // formValues.diez =  datos.diez
+        // formValues.once =  datos.once
+        // formValues.doce =  datos.doce
+        // formValues.psup =  datos.psup
+        // formValues.pinf =  datos.pinf
 
     }
 
+
+
+    const guardar = (e) => {
+        e.preventDefault();
+        // if (isFormValid()) {
+        // dispatch(startRegisterEmailPassword(name));
+        axios.post(`http://localhost:4002/api/regrecubrir`, formValues)
+            // axios.post(`https://bakend.vercel.app/api/regneedle`, formValues)
+            .then(res => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'correcto',
+                    showConfimButton: false,
+                    timer: 1200
+                })
+                reset();
+                // navigate("/needlelist")
+            })
+    }
 
 
     const alma = () => {
@@ -522,15 +588,40 @@ const Omm = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className='row text-center justify-content-center p-3'>
+                            <div className='col-3'>Nombre  </div>
+                            <div className='col-3 p-0'>
+                                <input
+                                    type="text"
+                                    className=""
+                                    id="exampleInputname"
+                                    name="name"
+                                    value={name}
+                                    onChange={event}
+                                // required={true}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className='text-center p-3'>
-                    <button className=" w-50 btn btn-lg btn-primary" type="submit">Calcular</button>
+                    <button className=" w-25 btn btn-lg btn-primary" type="submit">Calcular</button>
+                    <button className=" w-25 btn btn-lg btn-primary" onClick={guardar}>Guardar</button>
+                    {/* <button className=" w-25 btn btn-lg btn-primary" onClick={leer}>Leer</button> */}
+                    <button className=" w-25 btn btn-lg btn-primary" onClick={cargar}>carga</button>
                 </div>
             </form>
         </div>
 
     )
 }
+
+export const Recibo = (d) => {
+    const data = d
+    // const dddd = 15
+    console.log(data)
+
+}
+
 
 export default Omm
