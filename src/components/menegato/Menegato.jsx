@@ -1,6 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 import { useForm } from '../../hooks/useForm'
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { useEffect } from 'react';
+import './menegato.css';
 
 const Menegato = () => {
     const velmotor = 1800
@@ -19,7 +23,21 @@ const Menegato = () => {
     const [velfinalc, setVelfinalc] = useState(0)
     const [almaa, setAlmaa] = useState(0)
     const [titfin, setTitfin] = useState(0)
+    const [nylon, setNylon] = useState(0)
+    const [spandex, setSpandex] = useState(0)
+    const [grhora, setGrhora] = useState(0)
+    const [proddia, setProddia] = useState(0)
+    const [tiempo, setTiempo] = useState(0)
+    const [relcogida, setRelcogida] = useState(0)
+    const [rendimiento, setRendimiento] = useState(0)
+    const [saca, setSaca] = useState(0)
+    const [paquete, setpaquete] = useState(0)
+    const [datos, setdatos] = useState(0)
+    const [dat, setdat] = useState(0)
+
     const [formValues, handleInputChange, reset] = useForm({
+        name: '',
+        tipo: 'menegato',
         uno: '',
         dos: '',
         tres: '',
@@ -32,10 +50,6 @@ const Menegato = () => {
         diez: '',
         once: '',
         doce: '',
-        trece: '',
-        catorce: '',
-        quince: '',
-        diesiseis: '',
         tspand: '',
         tnylonext: '',
         tnylonint: '',
@@ -43,7 +57,17 @@ const Menegato = () => {
         pinf: '',
         puestos: ''
     });
-    const { uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, tspand, tnylonext, tnylonint, psup, pinf, puestos } = formValues;
+    const { name, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, tspand, tnylonext, tnylonint, psup, pinf, puestos } = formValues;
+
+    useEffect(() => {
+        if (leer()) {
+            // if (vmaquina()) {
+            //     cargar()
+            // }
+            cargar()
+        }
+    }, [dat],)
+
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -70,8 +94,71 @@ const Menegato = () => {
         //console.log(e.target.value, e.target.name, pinf)
     }
 
+    const leer = () => {
+        setdatos(JSON.parse(localStorage.getItem('array')))
+        if (datos === null) {
+            return (false)
+        }
+        return (true)
+    }
+
+    const cargar = () => {
+        // setdatos(JSON.parse(localStorage.getItem('array')))
+
+        console.log("cargar")
+        console.log(datos)
+        formValues.uno = datos.uno
+        formValues.dos = datos.dos
+        formValues.tres = datos.tres
+        formValues.cuatro = datos.cuatro
+        formValues.cinco = datos.cinco
+        formValues.seis = datos.seis
+        formValues.siete = datos.siete
+        formValues.ocho = datos.ocho
+        formValues.nueve = datos.nueve
+        formValues.diez = datos.diez
+        formValues.once = datos.once
+        formValues.doce = datos.doce
+        formValues.psup = datos.psup
+        formValues.pinf = datos.pinf
+        formValues.tspand = datos.tspand
+        formValues.tnylonext = datos.tnylonext
+        formValues.tnylonint = datos.tnylonint
+        formValues.puestos = datos.puestos
+        formValues.name = datos.name
+        setdat(1)
+    }
+
+    const guardar = (e) => {
+        e.preventDefault();
+        // if (isFormValid()) {
+        // dispatch(startRegisterEmailPassword(name));
+        axios.post(`http://localhost:4002/api/regrecubrir`, formValues)
+            // axios.post(`https://bakend.vercel.app/api/regneedle`, formValues)
+            .then(res => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'correcto',
+                    showConfimButton: false,
+                    timer: 1200
+                })
+                reset();
+                // navigate("/needlelist")
+            })
+    }
+
     const titulofinal = () => {
-        setTitfin((tspand / velest) + tnylonext)
+        setTitfin(((Number(tspand) / almaa) + Number(tnylonext)).toFixed(2))
+        // const yd = ((9000 * 453.6) / (titfin * 0.3048 * 3))
+        setNylon((tnylonext / titfin).toFixed(2))
+        setSpandex((1 - nylon).toFixed(2))
+        setGrhora(((velcrom * titfin * 60) / 9000).toFixed(2))
+        setProddia((grhora * puestos * 24 / 1000).toFixed(2))
+        setRendimiento((9000000 / titfin).toFixed(2))
+        setTiempo((24 / proddia).toFixed(2))
+        setRelcogida((velreco / velcrom).toFixed(2))
+        setSaca((350 / (nylon * grhora)).toFixed(2))
+        setpaquete((saca * grhora).toFixed(2))
     }
 
     const alma = () => {
@@ -150,10 +237,10 @@ const Menegato = () => {
 
 
     return (
-        <div className='p-4 align-items-center'>
+        <div className=' align-items-center'>
             <form onSubmit={handleRegister}>
-                <div className='row text-center'>
-                    <div className='col-6 '>
+                <div className='row text-center justify-content-center'>
+                    <div className='col-sm-6 left'>
                         <div className='row justify-content-center'>
                             <div className='col-2'>
                                 A
@@ -171,60 +258,60 @@ const Menegato = () => {
                                 RPM
                             </div>
                         </div>
-                        <div className='row justify-content-center'>
-                            <div className='col-2 '>
+                        {/* <div className='row justify-content-center'>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="uno"
                                     value={uno}
                                     onChange={event}
-                                    required={true}
+                                // required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="dos"
                                     value={dos}
                                     onChange={event}
-                                    required={true}
+                                //required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="tres"
                                     value={tres}
                                     onChange={event}
-                                    required={true}
+                                //required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="cuatro"
                                     value={cuatro}
                                     onChange={event}
-                                    required={true}
+                                //required={true}
                                 />
                             </div>
-                            <div className='col-2'>
+                            <div className='col-2 p-0'>
                                 {velreco}
                             </div>
-                        </div>
+                        </div> */}
                         <div className='row justify-content-center'>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="cinco"
                                     value={cinco}
@@ -232,10 +319,10 @@ const Menegato = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="seis"
                                     value={seis}
@@ -243,10 +330,10 @@ const Menegato = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="siete"
                                     value={siete}
@@ -254,10 +341,10 @@ const Menegato = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="ocho"
                                     value={ocho}
@@ -270,10 +357,10 @@ const Menegato = () => {
                             </div>
                         </div>
                         <div className='row justify-content-center'>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="nueve"
                                     value={nueve}
@@ -281,10 +368,10 @@ const Menegato = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="diez"
                                     value={diez}
@@ -292,10 +379,10 @@ const Menegato = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="once"
                                     value={once}
@@ -303,10 +390,10 @@ const Menegato = () => {
                                     required={true}
                                 />
                             </div>
-                            <div className='col-2 '>
+                            <div className='col-2 p-0 '>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className="in container"
                                     id="exampleInputname"
                                     name="doce"
                                     value={doce}
@@ -324,13 +411,13 @@ const Menegato = () => {
                                 <div className='col-3 text-center'>POLEA SUPERIOR </div>
                                 <div className='col-3 text-center'>POLEA INFERIOR </div>
                                 <div className='col-3 text-center'>RPM SUPERIOR </div>
-                                <div className='col-3 text-center'>RPM INTERIOR </div>
+                                <div className='col-3 text-center'>RPM INFERIOR </div>
                             </div>
                             <div className='row'>
                                 <div className='col-3 p-2 text-center'>
                                     <input
                                         type="text"
-                                        className="in"
+                                        className="in container"
                                         id="exampleInputname"
                                         name="psup"
                                         value={psup}
@@ -340,7 +427,7 @@ const Menegato = () => {
                                 <div className='col-3 p-2'>
                                     <input
                                         type="text"
-                                        className="in"
+                                        className="in container"
                                         id="exampleInputname"
                                         name="pinf"
                                         value={pinf}
@@ -348,8 +435,8 @@ const Menegato = () => {
                                         required={true}
                                     />
                                 </div>
-                                <div className='col-3 p-2'>{rpmhuso} </div>
-                                <div className='col-3 p-2'>{rpmhusos}</div>
+                                <div className='col-3 p-2'>{rpmhusos} </div>
+                                <div className='col-3 p-2'>{rpmhuso}</div>
                             </div>
                             <div className='p-3'><hr /></div>
                             <div className='row'>
@@ -362,127 +449,178 @@ const Menegato = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-6 '>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Spandex </label>
+                    <div className='col-sm-6 right'>
+                        <div className='row text-center '>
+                            <div className='col-sm-6 '>
+                                <div className='row  '>
+                                    <div className='col-6 justify-content-center'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Spandex </label>
+                                    </div>
+                                    <div className='col-6 cajain'>
+                                        <input
+                                            type="text"
+                                            className="in container"
+                                            id="exampleInputname"
+                                            name="tspand"
+                                            value={tspand}
+                                            onChange={event}
+                                        // required={true}
+                                        />
+                                    </div>
+
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Nylon Ext. </label>
+                                    </div>
+                                    <div className='col-6 cajain'> <input
+                                        type="text"
+                                        className="in container"
+                                        id="exampleInputname"
+                                        name="tnylonext"
+                                        value={tnylonext}
+                                        onChange={event}
+                                    // required={true}
+                                    /></div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Nylon Int. </label>
+                                    </div>
+                                    <div className='col-6 cajain'> <input
+                                        type="text"
+                                        className="in container"
+                                        id="exampleInputname"
+                                        name="tnylonint"
+                                        value={tnylonint}
+                                        onChange={event}
+                                    //required={true}
+                                    /></div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Nº de Puestos </label>
+                                    </div>
+                                    <div className='col-6 cajain'> <input
+                                        type="text"
+                                        className="in container"
+                                        id="exampleInputname"
+                                        name="puestos"
+                                        value={puestos}
+                                        onChange={event}
+                                    //required={true}
+                                    /></div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Estiro Alma</label>
+                                    </div>
+                                    <div className='col-6'>{almaa}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Grs/Hrs/Puesto </label>
+                                    </div>
+                                    <div className='col-6'>{grhora}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Prod kg/dia </label>
+                                    </div>
+                                    <div className='col-6'>{proddia}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Tiempo Hrs/Kgs</label>
+                                    </div>
+                                    <div className='col-6'>{tiempo}</div>
+                                </div>
                             </div>
-                            <div className='col-4'>
+                            <div className='col-sm-6 '>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Rel Recogida</label>
+                                    </div>
+                                    <div className='col-6'>{relcogida}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Rend Mts/Kgs</label>
+                                    </div>
+                                    <div className='col-6'>{rendimiento}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Titulo Final</label>
+                                    </div>
+                                    <div className='col-6'>{titfin}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">% Nylon</label>
+                                    </div>
+                                    <div className='col-6'>{nylon}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">% Spandex</label>
+                                    </div>
+                                    <div className='col-6'>{spandex}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">Hr/saca</label>
+                                    </div>
+                                    <div className='col-6'>{saca}</div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
+                                            className="col-form-label">gr/cono</label>
+                                    </div>
+                                    <div className='col-6'>{paquete}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='row text-center justify-content-center p-3'>
+                            <div className='col-3'>Nombre  </div>
+                            <div className='col-3 p-0'>
                                 <input
                                     type="text"
-                                    className="in"
+                                    className=""
                                     id="exampleInputname"
-                                    name="tspand"
-                                    value={tspand}
+                                    name="name"
+                                    value={name}
                                     onChange={event}
-                                //required={true}
+                                // required={true}
                                 />
                             </div>
-
                         </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Nylon Ext. </label>
-                            </div>
-                            <div className='col-4'> <input
-                                type="text"
-                                className="in"
-                                id="exampleInputname"
-                                name="tnylonext"
-                                value={tnylonext}
-                                onChange={event}
-                            // required={true}
-                            /></div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Nylon Int. </label>
-                            </div>
-                            <div className='col-4'> <input
-                                type="text"
-                                className="in"
-                                id="exampleInputname"
-                                name="tnylonint"
-                                value={tnylonint}
-                                onChange={event}
-                            // required={true}
-                            /></div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Nº de Puestos </label>
-                            </div>
-                            <div className='col-4'> <input
-                                type="text"
-                                className="in"
-                                id="exampleInputname"
-                                name="puestos"
-                                value={puestos}
-                                onChange={event}
-                                required={true}
-                            /></div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Estiro Alma</label>
-                            </div>
-                            <div className='col-4'>{almaa}</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Prod. Grs/Hrs/Puesto </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Produccion kg/dia </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Tiempo Hrs/Kgs </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Relacion de Recogida </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Rendimiento Mts/Kgs </label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-                        <div className='row justify-content-center '>
-                            <div className='col-4'>
-                                <label htmlFor="inputext"
-                                    className="col-form-label">Titulo Final del Hilo</label>
-                            </div>
-                            <div className='col-4'>xxxxx</div>
-                        </div>
-
                     </div>
                 </div>
-                <div>
-                    <button className="w-100 btn btn-lg btn-primary" type="submit">Calcular</button>
+                <div className='text-center p-3'>
+                    <button className=" w-25 btn btn-lg btn-primary" type="submit">Calcular</button>
+                    <button className=" w-25 btn btn-lg btn-primary" onClick={guardar}>Guardar</button>
+                    {/* <button className=" w-25 btn btn-lg btn-primary" onClick={leer}>Leer</button> */}
+                    {/* <button className=" w-25 btn btn-lg btn-primary" onClick={cargar}>carga</button> */}
                 </div>
             </form>
         </div>
+
     )
 }
 

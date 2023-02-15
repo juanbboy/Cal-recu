@@ -5,6 +5,8 @@ import './omm.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
+import Listado from '../listado/Listado';
+
 
 export const Omm = () => {
 
@@ -34,6 +36,7 @@ export const Omm = () => {
     const [saca, setSaca] = useState(0)
     const [paquete, setpaquete] = useState(0)
     const [datos, setdatos] = useState(0)
+    const [dat, setdat] = useState(0)
     //  const [subdatos, setsubdatos] = useState(localStorage.getItem("array"))
 
     const [formValues, handleInputChange, reset] = useForm({
@@ -60,6 +63,16 @@ export const Omm = () => {
     });
     const { name, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, tspand, tnylonext, tnylonint, psup, pinf, puestos } = formValues;
 
+    useEffect(() => {
+        if (leer()) {
+            // if (vmaquina()) {
+            //     cargar()
+            // }
+            cargar()
+        }
+    }, [dat],)
+
+
     const handleRegister = (e) => {
         e.preventDefault();
         rpm()
@@ -84,12 +97,11 @@ export const Omm = () => {
         titulofinal()
         console.log(formValues)
         //console.log(e.target.value, e.target.name, pinf)
+        localStorage.clear();
     }
 
     const titulofinal = () => {
         setTitfin(((Number(tspand) / almaa) + Number(tnylonext)).toFixed(2))
-        console.log(almaa)
-        console.log(Number(tspand) / almaa)
         // const yd = ((9000 * 453.6) / (titfin * 0.3048 * 3))
         setNylon((tnylonext / titfin).toFixed(2))
         setSpandex((1 - nylon).toFixed(2))
@@ -102,13 +114,27 @@ export const Omm = () => {
         setpaquete((saca * grhora).toFixed(2))
     }
 
-    const cargar = () => {
+    const leer = () => {
         setdatos(JSON.parse(localStorage.getItem('array')))
+        if (datos === null) {
+            return (false)
+        }
+        return (true)
+    }
+
+    const vmaquina = () => {
+        console.log(datos.tipo)
+        if (datos.tipo === "omm") {
+            return true
+        }
+        return false
+    }
+
+    const cargar = () => {
+        // setdatos(JSON.parse(localStorage.getItem('array')))
+
         console.log("cargar")
         console.log(datos)
-
-        // console.log datos.uno
-
         formValues.uno = datos.uno
         formValues.dos = datos.dos
         formValues.tres = datos.tres
@@ -128,22 +154,7 @@ export const Omm = () => {
         formValues.tnylonint = datos.tnylonint
         formValues.puestos = datos.puestos
         formValues.name = datos.name
-
-        // formValues.uno =  datos.uno
-        // formValues.dos =  datos.dos
-        // formValues.tres =  datos.tres
-        // formValues.cuatro =  datos.cuatro
-        // formValues.cinco =  datos.cinco
-        // formValues.seis =  datos.seis
-        // formValues.siete =  datos.siete
-        // formValues.ocho =  datos.ocho
-        // formValues.nueve =  datos.nueve
-        // formValues.diez =  datos.diez
-        // formValues.once =  datos.once
-        // formValues.doce =  datos.doce
-        // formValues.psup =  datos.psup
-        // formValues.pinf =  datos.pinf
-
+        setdat(1)
     }
 
 
@@ -608,7 +619,7 @@ export const Omm = () => {
                     <button className=" w-25 btn btn-lg btn-primary" type="submit">Calcular</button>
                     <button className=" w-25 btn btn-lg btn-primary" onClick={guardar}>Guardar</button>
                     {/* <button className=" w-25 btn btn-lg btn-primary" onClick={leer}>Leer</button> */}
-                    <button className=" w-25 btn btn-lg btn-primary" onClick={cargar}>carga</button>
+                    {/* <button className=" w-25 btn btn-lg btn-primary" onClick={cargar}>carga</button> */}
                 </div>
             </form>
         </div>
@@ -616,12 +627,6 @@ export const Omm = () => {
     )
 }
 
-export const Recibo = (d) => {
-    const data = d
-    // const dddd = 15
-    console.log(data)
-
-}
 
 
 export default Omm
