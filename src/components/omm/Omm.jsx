@@ -163,7 +163,8 @@ export const Omm = () => {
         e.preventDefault();
         // if (isFormValid()) {
         // dispatch(startRegisterEmailPassword(name));
-        axios.post(`http://localhost:4002/api/regrecubrir`, formValues)
+        //     axios.post(`http://localhost:4002/api/regrecubrir`, formValues)
+        axios.post(`https://cal-rec.vercel.app/api/regrecubrir`, formValues)
             // axios.post(`https://bakend.vercel.app/api/regneedle`, formValues)
             .then(res => {
                 Swal.fire({
