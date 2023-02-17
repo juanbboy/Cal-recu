@@ -616,8 +616,8 @@ export const Omm = () => {
                     </div>
                 </div>
                 <div className='text-center p-3'>
-                    <button className=" w-25 btn btn-sm btn-primary" type="submit">Calcular</button>
-                    <button className=" w-25 btn btn-sm btn-primary" onClick={guardar}>Guardar</button>
+                    <button className=" w-25 btn btn-md btn-primary" type="submit">Calcular</button>
+                    <button className=" w-25 btn btn-md btn-primary" onClick={guardar}>Guardar</button>
                     {/* <button className=" w-25 btn btn-lg btn-primary" onClick={leer}>Leer</button> */}
                     {/* <button className=" w-25 btn btn-lg btn-primary" onClick={cargar}>carga</button> */}
                 </div>
