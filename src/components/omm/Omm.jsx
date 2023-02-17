@@ -599,12 +599,12 @@ export const Omm = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='row text-center justify-content-center p-3'>
+                        <div className='row text-center justify-content-center p-2'>
                             <div className='col-3'>Nombre  </div>
                             <div className='col-3 p-0'>
                                 <input
                                     type="text"
-                                    className=""
+                                    className="in container"
                                     id="exampleInputname"
                                     name="name"
                                     value={name}
@@ -616,8 +616,8 @@ export const Omm = () => {
                     </div>
                 </div>
                 <div className='text-center p-3'>
-                    <button className=" w-25 btn btn-lg btn-primary" type="submit">Calcular</button>
-                    <button className=" w-25 btn btn-lg btn-primary" onClick={guardar}>Guardar</button>
+                    <button className=" w-25 btn btn-sm btn-primary" type="submit">Calcular</button>
+                    <button className=" w-25 btn btn-sm btn-primary" onClick={guardar}>Guardar</button>
                     {/* <button className=" w-25 btn btn-lg btn-primary" onClick={leer}>Leer</button> */}
                     {/* <button className=" w-25 btn btn-lg btn-primary" onClick={cargar}>carga</button> */}
                 </div>
