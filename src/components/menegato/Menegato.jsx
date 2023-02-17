@@ -4,7 +4,7 @@ import { useForm } from '../../hooks/useForm'
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
-import './menegato.css';
+
 
 const Menegato = () => {
     const velmotor = 1800
