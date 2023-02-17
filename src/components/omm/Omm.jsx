@@ -599,7 +599,7 @@ export const Omm = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='row text-center justify-content-center p-2'>
+                        <div className='row text-center justify-content-center p-3'>
                             <div className='col-6 nam'>Nombre</div>
                             <div className='col-6 nam1'>
                                 <input
