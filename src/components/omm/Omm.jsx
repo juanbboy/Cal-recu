@@ -5,7 +5,6 @@ import './omm.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
-import Listado from '../listado/Listado';
 
 
 export const Omm = () => {
@@ -453,7 +452,7 @@ export const Omm = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-sm-6 right'>
+                    <div className='col-md-6 right'>
                         <div className='row text-center '>
                             <div className='col-sm-6 '>
                                 <div className='row  '>

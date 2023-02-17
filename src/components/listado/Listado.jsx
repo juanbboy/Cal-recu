@@ -22,10 +22,8 @@ export const Listado = () => {
 
 
     const leer = () => {
-        // axios.get('http://localhost:4002/api/recubrir').then((res) => {
+
         axios.get('https://cal-rec.vercel.app/api/recubrir').then((res) => {
-            // axios.get('https://needlecpd.herokuapp.com/api/needle').then((res) => {
-            //axios.get('https://bakend.vercel.app/api/needle').then((res) => {
             setdatos(res.data)
         })
     }
