@@ -79,4 +79,14 @@
     .buton {
         min-width: 25%;
     }
+
+    .nam {
+        padding: 0px 0px 0px 100px;
+
+    }
+
+    .nam1 {
+        padding: 0px 100px 0px 0px;
+
+    }
 }
