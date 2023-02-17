@@ -46,6 +46,10 @@
         width: 150px;
         text-align: start;
     }
+
+    .buton {
+        min-width: 35%;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -70,5 +74,9 @@
     .name {
         width: 200px;
         text-align: start;
+    }
+
+    .buton {
+        min-width: 25%;
     }
 }

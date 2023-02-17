@@ -600,8 +600,8 @@ export const Omm = () => {
                             </div>
                         </div>
                         <div className='row text-center justify-content-center p-2'>
-                            <div className='col-3'>Nombre  </div>
-                            <div className='col-3 p-0'>
+                            <div className='col-6'>Nombre  </div>
+                            <div className='col-6 p-0'>
                                 <input
                                     type="text"
                                     className="name"
