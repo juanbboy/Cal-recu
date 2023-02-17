@@ -604,25 +604,27 @@ export const Omm = () => {
                             <div className='col-3 p-0'>
                                 <input
                                     type="text"
-                                    className="in container"
+                                    className="name"
                                     id="exampleInputname"
                                     name="name"
                                     value={name}
                                     onChange={event}
-                                // required={true}
+                                    required={true}
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className='text-center p-3'>
-                    <button className=" w-50 btn btn-md btn-primary" type="submit">Calcular</button>
-                    <button className=" w-50 btn btn-md btn-primary" onClick={guardar}>Guardar</button>
+                    <button className=" w-25 btn btn-md btn-outline-primary" type="submit">Calcular</button>
+
+                    <button className=" w-25 btn btn-md btn-outline-primary" onClick={guardar}>Guardar</button>
+
                     {/* <button className=" w-25 btn btn-lg btn-primary" onClick={leer}>Leer</button> */}
                     {/* <button className=" w-25 btn btn-lg btn-primary" onClick={cargar}>carga</button> */}
                 </div>
-            </form>
-        </div>
+            </form >
+        </div >
 
     )
 }

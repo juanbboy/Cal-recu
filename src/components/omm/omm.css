@@ -16,6 +16,11 @@
     .cajain {
         padding: 0px 50px 0px 50px;
     }
+
+    .name {
+        width: 60px;
+        text-align: start;
+    }
 }
 
 
@@ -31,6 +36,11 @@
 
     .cajain {
         padding: 0px 25px 0px 25px;
+    }
+
+    .name {
+        width: 150px;
+        text-align: start;
     }
 }
 
@@ -51,5 +61,10 @@
 
     .right {
         padding: 20px 0px 20px 10px;
+    }
+
+    .name {
+        width: 200px;
+        text-align: start;
     }
 }
