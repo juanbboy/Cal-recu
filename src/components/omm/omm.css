@@ -18,8 +18,12 @@
     }
 
     .name {
-        width: 60px;
+        width: 100px;
         text-align: start;
+    }
+
+    .buton {
+        min-width: 50%;
     }
 }
 
