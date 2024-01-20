@@ -5,9 +5,12 @@ import './omm.css';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 export const Omm = () => {
+    const params = useParams()
+    const navigate = useNavigate()
 
     const velmotor = 3590
     const dhuso = 25
@@ -18,15 +21,20 @@ export const Omm = () => {
     const [rpmhusos, setRpmhusos] = useState(0)
     const [reductor, setReductor] = useState(0)
     const [velcrom, setVelcrom] = useState(0)
+    const [velcroma, setVelcroma] = useState(0)
     const [velest, setVelest] = useState(0)
+    const [velesti, setvelesti] = useState(0)
     const [velreco, setVelreco] = useState(0)
     const [tpminf, setTpminf] = useState(0)
     const [tpmsup, setTpmsup] = useState(0)
     const [velfinalc, setVelfinalc] = useState(0)
     const [titfin, setTitfin] = useState(0)
+    const [titfina, setTitfina] = useState(0)
     const [almaa, setAlmaa] = useState(0)
     const [nylon, setNylon] = useState(0)
     const [spandex, setSpandex] = useState(0)
+    const [nylon1, setNylon1] = useState(0)
+    const [spandex1, setSpandex1] = useState(0)
     const [grhora, setGrhora] = useState(0)
     const [proddia, setProddia] = useState(0)
     const [tiempo, setTiempo] = useState(0)
@@ -35,12 +43,18 @@ export const Omm = () => {
     const [saca, setSaca] = useState(0)
     const [paquete, setpaquete] = useState(0)
     const [datos, setdatos] = useState(0)
-    const [dat, setdat] = useState(0)
+    const [esti, setesti] = useState(0)
+
     //  const [subdatos, setsubdatos] = useState(localStorage.getItem("array"))
 
     const [formValues, handleInputChange, reset] = useForm({
         name: '',
-        tipo: 'omm',
+        tipo: 'OMM',
+        modelo: 'ECO',
+        tipohuso: 'OMEGA',
+        tipocarre: '140 X 76 X 36 X 30',
+        capcarre: '380',
+        huso: '25',
         uno: '',
         dos: '',
         tres: '',
@@ -58,18 +72,36 @@ export const Omm = () => {
         tnylonint: '',
         psup: '',
         pinf: '',
-        puestos: ''
+        puestos: '',
+        alm: "",
+        velcrom: "",
+        velest: "",
+        velreco: "",
+        tpminf: "",
+        tpmsup: "",
+        rpmhuso: "",
+        rpmhusos: "",
+        titfin: "",
+        tiempo: "",
+        grhora: "",
+        proddia: "",
+        relcogida: "",
+        rendimiento: "",
+        spandex: "",
+        nylon: "",
+        cobertura: "Sencilla",
+        trece: "",
+        catorce: ""
     });
-    const { name, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, tspand, tnylonext, tnylonint, psup, pinf, puestos } = formValues;
+    const { name, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, tspand, tnylonext, tnylonint, psup, pinf, puestos, cobertura, capcarre, trece, catorce } = formValues;
 
     useEffect(() => {
-        if (leer()) {
-            // if (vmaquina()) {
-            //     cargar()
-            // }
-            cargar()
-        }
-    }, [dat],)
+        axios.get('https://cal-rec.vercel.app/api/recubrir').then((res) => {
+            if (params.id != null) {
+                cargar(res.data.find((datos) => datos._id === params.id))
+            }
+        })
+    }, [params.id])
 
 
     const handleRegister = (e) => {
@@ -82,9 +114,34 @@ export const Omm = () => {
         tpm()
         alma()
         titulofinal()
+        console.log(formValues)
+        console.log(almaa)
+        formValues.velcrom = velcroma
+        formValues.velest = velesti
+        formValues.velreco = velreco
+        formValues.tpminf = tpminf
+        formValues.tpmsup = tpmsup
+        formValues.titfin = titfina
+        formValues.rpmhuso = rpmhuso
+        formValues.rpmhusos = rpmhusos
+        formValues.tiempo = tiempo
+        formValues.grhora = grhora
+        formValues.proddia = proddia
+        formValues.relcogida = relcogida
+        formValues.rendimiento = rendimiento
+        formValues.spandex = spandex1
+        formValues.nylon = nylon1
+        handleInputChange(e)
     }
 
     const event = (e) => {
+        if (formValues.cobertura === "Doble") {
+            doble()
+            console.log("doble")
+        } else {
+            sencilla()
+            console.log("sencilla")
+        }
         handleInputChange(e)
         rpm()
         rpms()
@@ -95,31 +152,40 @@ export const Omm = () => {
         alma()
         titulofinal()
         console.log(formValues)
-        //console.log(e.target.value, e.target.name, pinf)
-        localStorage.clear();
+        console.log(almaa)
+        formValues.velcrom = velcroma
+        formValues.velest = velesti
+        formValues.velreco = velreco
+        formValues.tpminf = tpminf
+        formValues.tpmsup = tpmsup
+        formValues.titfin = titfina
+        formValues.rpmhuso = rpmhuso
+        formValues.rpmhusos = rpmhusos
+        formValues.tiempo = tiempo
+        formValues.grhora = grhora
+        formValues.proddia = proddia
+        formValues.relcogida = relcogida
+        formValues.rendimiento = rendimiento
+        formValues.spandex = spandex1
+        formValues.nylon = nylon1
     }
 
     const titulofinal = () => {
-        setTitfin(((Number(tspand) / almaa) + Number(tnylonext)).toFixed(2))
+
+        setTitfina(titfin.toFixed(2))
         // const yd = ((9000 * 453.6) / (titfin * 0.3048 * 3))
-        setNylon((tnylonext / titfin).toFixed(2))
-        setSpandex((1 - nylon).toFixed(2))
-        setGrhora(((velcrom * titfin * 60) / 9000).toFixed(2))
-        setProddia((grhora * puestos * 24 / 1000).toFixed(2))
-        setRendimiento((9000000 / titfin).toFixed(2))
-        setTiempo((24 / proddia).toFixed(2))
-        setRelcogida((velreco / velcrom).toFixed(2))
-        setSaca((350 / (nylon * grhora)).toFixed(2))
+        setNylon1((nylon).toFixed(2))
+        setSpandex((100 - nylon))
+        setSpandex1(spandex.toFixed(2))
+        setGrhora(((velcrom * titfin * 60) / 9000).toFixed(3))
+        setProddia((grhora * puestos * 24 / 1000).toFixed(3))
+        setRendimiento((9000000 / titfin).toFixed(0))
+        setTiempo((24 / proddia).toFixed(3))
+        setRelcogida((velreco / velcrom).toFixed(3))
+        setSaca((capcarre / (nylon * grhora)).toFixed(2))
         setpaquete((saca * grhora).toFixed(2))
     }
 
-    const leer = () => {
-        setdatos(JSON.parse(localStorage.getItem('array')))
-        if (datos === null) {
-            return (false)
-        }
-        return (true)
-    }
 
     const vmaquina = () => {
         console.log(datos.tipo)
@@ -129,11 +195,7 @@ export const Omm = () => {
         return false
     }
 
-    const cargar = () => {
-        // setdatos(JSON.parse(localStorage.getItem('array')))
-
-        console.log("cargar")
-        console.log(datos)
+    const cargar = (datos) => {
         formValues.uno = datos.uno
         formValues.dos = datos.dos
         formValues.tres = datos.tres
@@ -153,18 +215,44 @@ export const Omm = () => {
         formValues.tnylonint = datos.tnylonint
         formValues.puestos = datos.puestos
         formValues.name = datos.name
-        setdat(1)
+        formValues.catorce = datos.catorce
+        formValues.trece = datos.trece
+        setdatos(datos)
     }
 
-
+    const update = async (e) => {
+        e.preventDefault();
+        await axios.put(`https://cal-rec.vercel.app/api/update-student/${params.id}`, formValues)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizado',
+                    showConfirmButton: false,
+                    timer: 1200
+                })
+                Swal.fire({
+                    title: 'Crear Ficha ?',
+                    text: "¡Deseas crear ficha!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Crear!'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        crear(formValues)
+                    }
+                })
+                navigate("/list")
+            })
+    }
 
     const guardar = (e) => {
-        e.preventDefault();
-        // if (isFormValid()) {
-        // dispatch(startRegisterEmailPassword(name));
-        //     axios.post(`http://localhost:4002/api/regrecubrir`, formValues)
+
         axios.post(`https://cal-rec.vercel.app/api/regrecubrir`, formValues)
-            // axios.post(`https://bakend.vercel.app/api/regneedle`, formValues)
+            // axios.post(`http://localhost:4002/api/regrecubrir`, formValues)
             .then(res => {
                 Swal.fire({
                     icon: 'success',
@@ -172,14 +260,32 @@ export const Omm = () => {
                     showConfimButton: false,
                     timer: 1200
                 })
-                reset();
-                // navigate("/needlelist")
+                Swal.fire({
+                    title: 'Crear Ficha ?',
+                    text: "¡Deseas crear ficha!",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Crear!'
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        crear(formValues)
+                    }
+                })
+                navigate("/list")
             })
+    }
+
+    const crear = (data) => {
+        navigate(`/crear/${data.name}`)
     }
 
 
     const alma = () => {
-        setAlmaa((velcrom / velest).toFixed(2))
+        setAlmaa((velcrom / velest))
+        setesti(almaa.toFixed(2))
+        formValues.alm = (almaa.toFixed(2))
     }
     const recogida = () => {
         const rel1 = uno / dos
@@ -203,7 +309,8 @@ export const Omm = () => {
         const diametro = 72
         const dmetro = diametro / 1000
         const radio = dmetro / 2
-        setVelcrom((radmin * radio).toFixed(2))
+        setVelcrom((radmin * radio))
+        setVelcroma(velcrom.toFixed(2))
     }
 
     const tpm = () => {
@@ -224,7 +331,8 @@ export const Omm = () => {
         const diametro = 100
         const dmetro = diametro / 1000
         const radio = dmetro / 2
-        setVelest((radmin * radio).toFixed(2))
+        setVelest((radmin * radio))
+        setvelesti(velest.toFixed(2))
     }
 
     const rpm = () => {
@@ -237,6 +345,15 @@ export const Omm = () => {
         setRpmhusos((velmotor * (costpolea + Number(psup)) / dhuso).toFixed(0))
     }
 
+    const sencilla = () => {
+        setTitfin(((Number(tspand) / almaa) + Number(tnylonext)))
+        setNylon(Number(tnylonext) / titfin * 100)
+    }
+
+    const doble = () => {
+        setTitfin(((Number(tspand) / almaa) + Number(tnylonext) + Number(tnylonint)))
+        setNylon((Number(tnylonext) + Number(tnylonint)) / titfin)
+    }
 
 
     return (
@@ -244,6 +361,28 @@ export const Omm = () => {
             <form onSubmit={handleRegister}>
                 <div className='row text-center justify-content-center'>
                     <div className='col-sm-6 left'>
+
+                        <div className='row my-3 p-0'>
+                            <div className='col-3 '>
+                                <label htmlFor="inputext"
+                                    className="col-form-label">Cobertura</label>
+                            </div>
+                            <select
+                                value={cobertura}
+                                onChange={event}
+                                type="text"
+                                className="col-3 p-0"
+                                name="cobertura"
+                                id="exampleInputname"
+                                required={true}
+                            >
+                                <option value="Sencilla">Sencilla</option>
+                                <option value="Doble">Doble</option>
+                            </select>
+                        </div>
+
+
+
                         <div className='row justify-content-center'>
                             <div className='col-2'>
                                 A
@@ -261,6 +400,56 @@ export const Omm = () => {
                                 RPM
                             </div>
                         </div>
+                        <div className='row justify-content-center'>
+                            <div className='col-2 p-0'>
+                                <input
+                                    type="text"
+                                    className="in container"
+                                    id="exampleInputname"
+                                    name="trece"
+                                    value={trece}
+                                    onChange={event}
+                                // required={true}
+                                />
+                            </div>
+                            <div className='col-2 p-0'>
+                                <input
+                                    type="text"
+                                    className="in container"
+                                    id="exampleInputname"
+                                    name="catorce"
+                                    value={catorce}
+                                    onChange={event}
+                                //required={true}
+                                />
+                            </div>
+                            <div className='col-2 p-0'>
+                                <input
+                                    type="text"
+                                    className="in container"
+                                    id="exampleInputname"
+                                    // name="tres"
+                                    value={"N/A"}
+                                // onChange={event}
+                                //required={true}
+                                />
+                            </div>
+                            <div className='col-2 p-0'>
+                                <input
+                                    type="text"
+                                    className="in container"
+                                    id="exampleInputname"
+                                    //name="cuatro"
+                                    value={"N/A"}
+                                //onChange={event}
+                                //required={true}
+                                />
+                            </div>
+                            <div className='col-2 p-0'>
+                                {"N/A"}
+                            </div>
+                        </div>
+
                         <div className='row justify-content-center'>
                             <div className='col-2 p-0'>
                                 <input
@@ -356,7 +545,7 @@ export const Omm = () => {
                                 />
                             </div>
                             <div className='col-2'>
-                                {velcrom}
+                                {velcroma}
                             </div>
                         </div>
                         <div className='row justify-content-center'>
@@ -405,7 +594,7 @@ export const Omm = () => {
                                 />
                             </div>
                             <div className='col-2'>
-                                {velest}
+                                {velesti}
                             </div>
                         </div>
                         <div className='row justify-content-center'>
@@ -452,13 +641,15 @@ export const Omm = () => {
                             </div>
                         </div>
                     </div>
+
+
                     <div className='col-md-6 right'>
                         <div className='row text-center '>
                             <div className='col-sm-6 '>
                                 <div className='row  '>
                                     <div className='col-6 justify-content-center'>
                                         <label htmlFor="inputext"
-                                            className="col-form-label">Titulo Spandex </label>
+                                            className="col-form-label">Spandex </label>
                                     </div>
                                     <div className='col-6 cajain'>
                                         <input
@@ -521,9 +712,24 @@ export const Omm = () => {
                                 <div className='row justify-content-center '>
                                     <div className='col-6'>
                                         <label htmlFor="inputext"
+                                            className="col-form-label">Capacidad Carreta/grs </label>
+                                    </div>
+                                    <div className='col-6 cajain'> <input
+                                        type="text"
+                                        className="in container"
+                                        id="exampleInputname"
+                                        name="capcarre"
+                                        value={capcarre}
+                                        onChange={event}
+                                    // required={true}
+                                    /></div>
+                                </div>
+                                <div className='row justify-content-center '>
+                                    <div className='col-6'>
+                                        <label htmlFor="inputext"
                                             className="col-form-label">Estiro Alma</label>
                                     </div>
-                                    <div className='col-6'>{almaa}</div>
+                                    <div className='col-6'>{esti}</div>
                                 </div>
                                 <div className='row justify-content-center '>
                                     <div className='col-6'>
@@ -539,6 +745,9 @@ export const Omm = () => {
                                     </div>
                                     <div className='col-6'>{proddia}</div>
                                 </div>
+
+                            </div>
+                            <div className='col-sm-6 '>
                                 <div className='row justify-content-center '>
                                     <div className='col-6'>
                                         <label htmlFor="inputext"
@@ -546,8 +755,6 @@ export const Omm = () => {
                                     </div>
                                     <div className='col-6'>{tiempo}</div>
                                 </div>
-                            </div>
-                            <div className='col-sm-6 '>
                                 <div className='row justify-content-center '>
                                     <div className='col-6'>
                                         <label htmlFor="inputext"
@@ -567,21 +774,21 @@ export const Omm = () => {
                                         <label htmlFor="inputext"
                                             className="col-form-label">Titulo Final</label>
                                     </div>
-                                    <div className='col-6'>{titfin}</div>
+                                    <div className='col-6'>{titfina}</div>
                                 </div>
                                 <div className='row justify-content-center '>
                                     <div className='col-6'>
                                         <label htmlFor="inputext"
                                             className="col-form-label">% Nylon</label>
                                     </div>
-                                    <div className='col-6'>{nylon}</div>
+                                    <div className='col-6'>{nylon1}</div>
                                 </div>
                                 <div className='row justify-content-center '>
                                     <div className='col-6'>
                                         <label htmlFor="inputext"
                                             className="col-form-label">% Spandex</label>
                                     </div>
-                                    <div className='col-6'>{spandex}</div>
+                                    <div className='col-6'>{spandex1}</div>
                                 </div>
                                 <div className='row justify-content-center '>
                                     <div className='col-6'>
@@ -616,15 +823,14 @@ export const Omm = () => {
                     </div>
                 </div>
                 <div className='text-center p-3'>
-                    <button className="buton btn btn-md btn-outline-primary" type="submit">Calcular</button>
+                    <button className="buton btn btn-md btn-outline-primary" type="submit" onClick={event}>Calcular</button>
                     <button className="buton btn btn-md btn-outline-primary" onClick={guardar}>Guardar</button>
+                    {params.id ? <button className="buton btn btn-md btn-outline-primary" onClick={update}>Actualizar</button> : ''}
+                    {params.id ? <button className="buton btn btn-md btn-outline-primary" onClick={crear.bind(this, formValues)}>Crear Ficha</button> : ''}
                 </div>
             </form >
         </div >
-
     )
 }
-
-
 
 export default Omm

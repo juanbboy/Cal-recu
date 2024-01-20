@@ -1,0 +1,39 @@
+@media (min-width: 320px) {
+    .hoja {
+        width: 100%;
+        zoom: 0.5;
+    }
+
+    .colum {
+        width: 10%;
+    }
+
+    .margen {
+        padding: 4px;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .hoja {
+        width: 100%;
+        zoom: 1;
+    }
+
+    .margen {
+        padding: 30px;
+    }
+
+}
+
+@media (min-width: 1178px) {
+    .hoja {
+        width: 70%;
+        zoom: 1;
+    }
+
+    .margen {
+        padding: 16px 50px;
+    }
+
+}
