@@ -1,8 +1,7 @@
-@media (min-width: 310px) and (orientation: portrait) {
+@media (min-width: 310px) {
     .hoja {
         width: 100%;
         zoom: 0.6;
-        /* display: none; */
     }
 
     .colum {
