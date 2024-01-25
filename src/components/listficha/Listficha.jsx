@@ -90,7 +90,7 @@ export const Listficha = () => {
                                 <td>{datos.date}</td>
                                 <td>{datos.tipo}</td>
                                 <td>{datos.name}</td>
-                                <td>
+                                <td className='text-center'>
                                     <button className="btn btn-info py-0 px-2 " onClick={Abrir.bind(this, datos)}>ver</button>
                                     <svg className='icon bi bi-trash3' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" onClick={handleSubmit.bind(this, datos._id)}>
 
