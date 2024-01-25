@@ -203,7 +203,7 @@ const Ficha = () => {
 
   // console.log(orientation.toString())
   // console.log(ori)
-  // if (window.matchMedia('(max-width:768px)').matches) return <h2>¡ Gira la pantalla !</h2>
+  if (window.matchMedia('(max-width:580px)').matches) return <h2>¡ Gira la pantalla !</h2>
 
   return (
 
