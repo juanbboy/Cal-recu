@@ -5,11 +5,11 @@ import "../ficha/ficha.css"
 import { useForm } from '../../hooks/useForm'
 import { useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { useOrientation } from "@uidotdev/usehooks";
 
 const Ficha = () => {
   const navigate = useNavigate()
-
-  const pant = window.matchMedia('(max-width:768px)').matches
+  const orientation = useOrientation().angle;
   const params = useParams()
   const [datos, setdatos] = useState(0)
   const [formValues, handleInputChange, reset] = useForm({
