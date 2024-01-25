@@ -813,7 +813,7 @@ const Ficha = () => {
       </div >
       <div className='p-3 text-center'>
         <button className="buton btn btn-md btn-outline-primary m-1" onClick={guardar}>Guardar</button>
-        <button className="buton btn btn-md btn-outline-primary m-1" onClick={print}>To PDF</button>
+        <button className="buton btn btn-md btn-outline-primary" onClick={print}>To PDF</button>
         {params.id ? <button className="buton btn btn-md btn-outline-primary m-1" onClick={update}>Actualizar</button> : ''}
       </div>
     </div>
