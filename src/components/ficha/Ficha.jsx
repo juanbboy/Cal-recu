@@ -5,15 +5,11 @@ import "../ficha/ficha.css"
 import { useForm } from '../../hooks/useForm'
 import { useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { useOrientation } from "@uidotdev/usehooks";
 
 const Ficha = () => {
   const navigate = useNavigate()
-  const orientation = useOrientation().angle;
-  const pant = window.matchMedia('(max-width:768px)').matches
   const params = useParams()
   const [datos, setdatos] = useState(0)
-  const [ori, setori] = useState()
   const [formValues, handleInputChange, reset] = useForm({
     name: '',
     tipo: '',
@@ -203,7 +199,7 @@ const Ficha = () => {
 
   // console.log(orientation.toString())
   // console.log(ori)
-  if (window.matchMedia('(max-width:580px)').matches) return <h2>¡ Gira la pantalla !</h2>
+  if (window.matchMedia('(max-width:580px)').matches) return Swal.fire("Gira la pantalla!")
 
   return (
 
