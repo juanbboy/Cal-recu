@@ -5,11 +5,15 @@ import "../ficha/ficha.css"
 import { useForm } from '../../hooks/useForm'
 import { useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { useOrientation } from "@uidotdev/usehooks";
 
 const Ficha = () => {
   const navigate = useNavigate()
+  const orientation = useOrientation().angle;
+  const pant = window.matchMedia('(max-width:768px)').matches
   const params = useParams()
   const [datos, setdatos] = useState(0)
+  const [ori, setori] = useState()
   const [formValues, handleInputChange, reset] = useForm({
     name: '',
     tipo: '',
@@ -811,10 +815,10 @@ const Ficha = () => {
 
 
       </div >
-      <div className='p-3 text-center'>
-        <button className="buton btn btn-md btn-outline-primary m-1" onClick={guardar}>Guardar</button>
+      <div className='p-3 d-flex justify-content-center'>
+        <button className="buton btn btn-md btn-outline-primary" onClick={guardar}>Guardar</button>
         <button className="buton btn btn-md btn-outline-primary" onClick={print}>To PDF</button>
-        {params.id ? <button className="buton btn btn-md btn-outline-primary m-1" onClick={update}>Actualizar</button> : ''}
+        {params.id ? <button className="buton btn btn-md btn-outline-primary" onClick={update}>Actualizar</button> : ''}
       </div>
     </div>
 
