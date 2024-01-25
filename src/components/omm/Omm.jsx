@@ -105,6 +105,7 @@ export const Omm = () => {
 
 
     const handleRegister = (e) => {
+
         e.preventDefault();
         rpm()
         rpms()
