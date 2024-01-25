@@ -199,7 +199,7 @@ const Ficha = () => {
 
   // console.log(orientation.toString())
   // console.log(ori)
-  if (window.matchMedia('(max-width:580px)').matches) return Swal.fire("Gira la pantalla!")
+  if (window.matchMedia('(max-width:580px)').matches) return <h2>¡ Gira la pantalla !</h2>
 
   return (
 
@@ -811,10 +811,10 @@ const Ficha = () => {
 
 
       </div >
-      <div className='p-3 d-flex justify-content-center'>
-        <button className="buton btn btn-md btn-outline-primary" onClick={guardar}>Guardar</button>
-        <button className="buton btn btn-md btn-outline-primary" onClick={print}>To PDF</button>
-        {params.id ? <button className="buton btn btn-md btn-outline-primary" onClick={update}>Actualizar</button> : ''}
+      <div className='p-3 text-center'>
+        <button className="buton btn btn-md btn-outline-primary m-1" onClick={guardar}>Guardar</button>
+        <button className="buton btn btn-md btn-outline-primary m-1" onClick={print}>To PDF</button>
+        {params.id ? <button className="buton btn btn-md btn-outline-primary m-1" onClick={update}>Actualizar</button> : ''}
       </div>
     </div>
 
