@@ -21,8 +21,20 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
+// Suscripción en tiempo real a una colección
+const subscribeToCollection = (collectionPath, onUpdate) => {
+  return db.collection(collectionPath).onSnapshot(onUpdate);
+};
+
+// Suscripción en tiempo real a un documento
+const subscribeToDocument = (docPath, onUpdate) => {
+  return db.doc(docPath).onSnapshot(onUpdate);
+};
+
 export {
   db,
   googleAuthProvider,
-  firebase
+  firebase,
+  subscribeToCollection,
+  subscribeToDocument
 }

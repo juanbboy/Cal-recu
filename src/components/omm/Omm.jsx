@@ -132,16 +132,15 @@ export const Omm = () => {
         formValues.rendimiento = rendimiento
         formValues.spandex = spandex1
         formValues.nylon = nylon1
+        formValues.cobertura = cobertura
         handleInputChange(e)
     }
 
     const event = (e) => {
         if (formValues.cobertura === "Doble") {
             doble()
-            console.log("doble")
         } else {
             sencilla()
-            console.log("sencilla")
         }
         handleInputChange(e)
         rpm()
@@ -169,15 +168,16 @@ export const Omm = () => {
         formValues.rendimiento = rendimiento
         formValues.spandex = spandex1
         formValues.nylon = nylon1
+        formValues.cobertura = cobertura
     }
 
     const titulofinal = () => {
 
         setTitfina(titfin.toFixed(2))
         // const yd = ((9000 * 453.6) / (titfin * 0.3048 * 3))
-        setNylon1((nylon).toFixed(2))
+        setNylon1((nylon).toFixed(3))
         setSpandex((100 - nylon))
-        setSpandex1(spandex.toFixed(2))
+        setSpandex1((spandex).toFixed(3))
         setGrhora(((velcrom * titfin * 60) / 9000).toFixed(3))
         setProddia((grhora * puestos * 24 / 1000).toFixed(3))
         setRendimiento((9000000 / titfin).toFixed(0))
@@ -353,7 +353,7 @@ export const Omm = () => {
 
     const doble = () => {
         setTitfin(((Number(tspand) / almaa) + Number(tnylonext) + Number(tnylonint)))
-        setNylon((Number(tnylonext) + Number(tnylonint)) / titfin)
+        setNylon((Number(tnylonext) + Number(tnylonint)) / titfin * 100)
     }
 
 

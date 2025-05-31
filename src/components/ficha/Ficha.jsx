@@ -56,6 +56,7 @@ const Ficha = () => {
     rendimiento: "",
     spandex: "",
     nylon: "",
+    nylone: "",
     cobertura: "",
     nylontex: "Nylon texturizado",
     nylontexi: "Nylon texturizado",
@@ -74,7 +75,7 @@ const Ficha = () => {
     elong: "",
     encog: ""
   });
-  const { name, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, trece, catorce, tspand, tnylonext, tnylonint, psup, pinf, puestos, tipo, date, alm, velcrom, velest, velreco, tpminf, tpmsup, rpmhuso, rpmhusos, titfin, tiempo, grhora, proddia, relcogida, rendimiento, spandex, nylon, modelo, tipohuso, tipocarre, capcarre, huso, cobertura, nylontex, nylontexi, spantex, torsion, cliente, opcion, descrip, tipoe, tiponi, proveeni, proveene, tipos, provees, elong, encog, obs } = formValues;
+  const { name, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez, once, doce, trece, catorce, tspand, tnylonext, tnylonint, psup, pinf, puestos, tipo, date, alm, velcrom, velest, velreco, tpminf, tpmsup, rpmhuso, rpmhusos, titfin, tiempo, grhora, proddia, relcogida, rendimiento, spandex, nylon, nylone, modelo, tipohuso, tipocarre, capcarre, huso, cobertura, nylontex, nylontexi, spantex, torsion, cliente, opcion, descrip, tipoe, tiponi, proveeni, proveene, tipos, provees, elong, encog, obs } = formValues;
 
 
   useEffect(() => {
@@ -133,8 +134,9 @@ const Ficha = () => {
     formValues.proddia = datos.proddia
     formValues.relcogida = datos.relcogida
     formValues.rendimiento = datos.rendimiento
-    formValues.spandex = (datos.spandex * 100).toFixed(2)
-    formValues.nylon = (datos.nylon * 100).toFixed(2)
+    formValues.spandex = datos.spandex
+    formValues.nylon = datos.nylon
+    formValues.nylone = datos.nylone
     formValues.modelo = datos.modelo
     formValues.tipohuso = datos.tipohuso
     formValues.tipocarre = datos.tipocarre
@@ -161,7 +163,7 @@ const Ficha = () => {
     if (formValues.cobertura === "Sencilla") {
       formValues.torsion = "S - Z"
     } else { formValues.torsion = "Doble" }
-    setdatos(datos)
+    setdatos(datos + 1)
   }
 
   const update = async (e) => {
@@ -206,7 +208,7 @@ const Ficha = () => {
   return (
 
     <div className='hoja' >
-      <div className=' border border-dark  margen' >
+      <div className=' border border-dark margen' >
         <div className="px-3 ">
           <div className="row border border-dark border d-flex justify-content-center align-items-center p-0">
             <div className='col'>
@@ -239,11 +241,12 @@ const Ficha = () => {
               <div className="col-4 text-end">
                 Cliente
               </div>
-              <div className="col-3 border-bottom border-dark">
+              <div className="col-3 border-bottom border-dark " >
                 <input
                   type="text"
                   className="border-0 col-12 p-0 text-center"
-                  id="exampleInputname"
+                  style={{ backgroundColor: "transparent" }}
+                  id="cliente"
                   name="cliente"
                   value={cliente}
                   onChange={event}
@@ -263,7 +266,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-12 p-0 "
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="opcion"
                 name="opcion"
                 value={opcion}
                 onChange={event}
@@ -295,7 +299,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="descrip"
                 name="descrip"
                 value={descrip}
                 onChange={event}
@@ -308,9 +313,9 @@ const Ficha = () => {
         <h5 className='text-center border border-dark my-2'>DATOS DE MONTAJE DE LA MAQUINA</h5>
 
         <div className=' p-3 '>
-          <div class="row">
+          <div className="row">
             <div className='col-sm-6'>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Maquina
                 </div>
@@ -318,7 +323,7 @@ const Ficha = () => {
                   {tipo}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Tipo de huso
                 </div>
@@ -326,7 +331,7 @@ const Ficha = () => {
                   {tipohuso}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Tipo de carreta
                 </div>
@@ -334,7 +339,7 @@ const Ficha = () => {
                   {tipocarre}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Tiempo de carrete superior/Hrs
                 </div>
@@ -342,7 +347,7 @@ const Ficha = () => {
                   {0}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Polea inferior
                 </div>
@@ -350,7 +355,7 @@ const Ficha = () => {
                   {pinf}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Polea superior
                 </div>
@@ -358,7 +363,7 @@ const Ficha = () => {
                   {psup}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Nº de puestos
                 </div>
@@ -366,7 +371,7 @@ const Ficha = () => {
                   {puestos}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Tiempo Hrs/Kgs
                 </div>
@@ -374,7 +379,7 @@ const Ficha = () => {
                   {tiempo}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Tiempo Enconado
                 </div>
@@ -385,7 +390,7 @@ const Ficha = () => {
             </div>
 
             <div className='col-sm-6'>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Modelo
                 </div>
@@ -393,7 +398,7 @@ const Ficha = () => {
                   {modelo}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Polea de huso/mm
                 </div>
@@ -401,7 +406,7 @@ const Ficha = () => {
                   {huso}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Capacidad de carreta/grs
                 </div>
@@ -409,7 +414,7 @@ const Ficha = () => {
                   {capcarre}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Tiempo de carrete inferior/Hrs
                 </div>
@@ -417,7 +422,7 @@ const Ficha = () => {
                   {0}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   RPM
                 </div>
@@ -425,7 +430,7 @@ const Ficha = () => {
                   {rpmhuso}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   RPM
                 </div>
@@ -433,7 +438,7 @@ const Ficha = () => {
                   {rpmhusos}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Prod. Grs/Hrs/Puesto
                 </div>
@@ -441,7 +446,7 @@ const Ficha = () => {
                   {grhora}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Produccion (kg/dia)
                 </div>
@@ -449,7 +454,7 @@ const Ficha = () => {
                   {proddia}
                 </div>
               </div>
-              <div class="row">
+              <div className="row">
                 <div className="col-sm-7">
                   Tiempo Encarretado
                 </div>
@@ -546,21 +551,32 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 "
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="spantex"
                 name="spantex"
                 value={spantex}
                 onChange={event}
                 required={true}
               />
             </div>
-            <div className='col-sm-1 border-bottom border-dark mx-1 text-center'>
-              {tspand}
+            <div className='col-sm-1 border-bottom border-dark p-0 text-center'>
+              <input
+                type="text"
+                className="border-0 col-sm-12 p-0  text-center "
+                style={{ backgroundColor: "transparent" }}
+                id="tspand"
+                name="tspand"
+                value={tspand}
+                onChange={event}
+                required={true}
+              />
             </div>
             <div className='col-sm-1 border-bottom border-dark mx-1 text-center p-0'>
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="tipos"
                 name="tipos"
                 value={tipos}
                 onChange={event}
@@ -571,7 +587,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="spandex"
                 name="spandex"
                 value={spandex}
                 onChange={event}
@@ -583,7 +600,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="provees"
                 name="provees"
                 value={provees}
                 onChange={event}
@@ -599,21 +617,32 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 "
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="nylontexi"
                 name="nylontexi"
                 value={nylontexi}
                 onChange={event}
                 required={true}
               />
             </div>
-            <div className='col-sm-1 border-bottom border-dark mx-1 text-center'>
-              {tnylonint}
+            <div className='col-sm-1 border-bottom border-dark p-0 text-center'>
+              <input
+                type="text"
+                className="border-0 col-sm-12 p-0  text-center "
+                style={{ backgroundColor: "transparent" }}
+                id="tnylonint"
+                name="tnylonint"
+                value={tnylonint}
+                onChange={event}
+                required={true}
+              />
             </div>
             <div className='col-sm-1 border-bottom border-dark mx-1 text-center p-0'>
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="tiponi"
                 name="tiponi"
                 value={tiponi}
                 onChange={event}
@@ -624,7 +653,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="nylon"
                 name="nylon"
                 value={nylon}
                 onChange={event}
@@ -635,7 +665,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="proveeni"
                 name="proveeni"
                 value={proveeni}
                 onChange={event}
@@ -651,21 +682,32 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 "
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="nylontex"
                 name="nylontex"
                 value={nylontex}
                 onChange={event}
                 required={true}
               />
             </div>
-            <div className='col-sm-1 border-bottom border-dark mx-1 text-center'>
-              {tnylonext}
+            <div className='col-sm-1 border-bottom border-dark p-0 text-center'>
+              <input
+                type="text"
+                className="border-0 col-sm-12 p-0 text-center"
+                style={{ backgroundColor: "transparent" }}
+                id="tnylonext"
+                name="tnylonext"
+                value={tnylonext}
+                onChange={event}
+                required={true}
+              />
             </div>
             <div className='col-sm-1 border-bottom border-dark mx-1 text-center p-0'>
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="tipoe"
                 name="tipoe"
                 value={tipoe}
                 onChange={event}
@@ -676,9 +718,11 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
-                name="nylon"
-                value={nylon}
+                style={{ backgroundColor: "transparent" }}
+                // style={{ borderWidth: "thin" }}
+                id="nylone"
+                name="nylone"
+                value={nylone}
                 onChange={event}
                 required={true}
               />
@@ -687,7 +731,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="proveene"
                 name="proveene"
                 value={proveene}
                 onChange={event}
@@ -699,7 +744,7 @@ const Ficha = () => {
 
 
         <div className='px-5 py-3 '>
-          <div class="row justify-content-center ">
+          <div className="row justify-content-center ">
             <div className="col-sm-3">
               Estiro Total Alma
             </div>
@@ -713,7 +758,7 @@ const Ficha = () => {
               {relcogida}
             </div>
           </div>
-          <div class="row justify-content-center">
+          <div className="row justify-content-center">
             <div className="col-sm-3">
               T.P.M Interior/m
             </div>
@@ -721,7 +766,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="tpminf"
                 name="tpminf"
                 value={tpminf}
                 onChange={event}
@@ -735,7 +781,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="tpmsup"
                 name="tpmsup"
                 value={tpmsup}
                 onChange={event}
@@ -743,7 +790,7 @@ const Ficha = () => {
               />
             </div>
           </div>
-          <div class="row justify-content-center">
+          <div className="row justify-content-center">
             <div className="col-sm-3">
               Elongación %
             </div>
@@ -751,7 +798,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="elong"
                 name="elong"
                 value={elong}
                 onChange={event}
@@ -765,7 +813,7 @@ const Ficha = () => {
               {rendimiento}
             </div>
           </div>
-          <div class="row justify-content-center">
+          <div className="row justify-content-center">
             <div className="col-sm-3">
               Encogimiento  %
             </div>
@@ -773,7 +821,8 @@ const Ficha = () => {
               <input
                 type="text"
                 className="border-0 col-sm-12 p-0 text-center"
-                id="exampleInputname"
+                style={{ backgroundColor: "transparent" }}
+                id="encog"
                 name="encog"
                 value={encog}
                 onChange={event}
@@ -784,7 +833,16 @@ const Ficha = () => {
               Titulo Final del Hilo
             </div>
             <div className="col-sm-2 border-bottom border-dark text-center">
-              {titfin}
+              <input
+                type="text"
+                className="border-0 col-sm-12 p-0 text-center"
+                style={{ backgroundColor: "transparent" }}
+                id="titfin"
+                name="titfin"
+                value={titfin}
+                onChange={event}
+                required={true}
+              />
             </div>
           </div>
         </div>
@@ -793,7 +851,8 @@ const Ficha = () => {
             <b>Observaciones: </b><input
               type="text"
               className="border-0 col-sm-10 p-0 "
-              id="exampleInputname"
+              style={{ backgroundColor: "transparent" }}
+              id="obs"
               name="obs"
               value={obs}
               onChange={event}
@@ -807,7 +866,7 @@ const Ficha = () => {
           </div>
           <div className="col-sm-2 px-0  ">
             <div className='border border-dark border-start-0 border-start-0 border-bottom-0 text-center'><b>Fecha</b></div>
-            <div className='col-sm border border-dark border-start-0 text-center'>{date}</div>
+            <div className='col-sm border border-dark border-start-0 text-center'>{new Date(date).toLocaleDateString()}</div>
           </div>
         </div>
 
